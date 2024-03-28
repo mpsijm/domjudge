@@ -234,6 +234,7 @@ readonly class ScoreboardMergeCommand
                     $label = $baseProblem['label'];
                     $name = $baseProblem['name'];
                     if (!array_key_exists($name, $problemNameToIdMap)) {
+                        dump("New NAME $name");
                         $id = count($problems);
                         $problemObj = (new Problem())
                             ->setProbid($id)

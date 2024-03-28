@@ -25,6 +25,7 @@ services:
       - /sys/fs/cgroup:/sys/fs/cgroup
       - .:${PWD}:cached
       - /chroot
+      - /home/maarten/git/contest/fpcs2026/_scoreboards:/scoreboards
     ports:
       - 12345:80
     privileged: true
