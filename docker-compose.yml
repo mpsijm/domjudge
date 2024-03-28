@@ -25,6 +25,7 @@ services:
       - /sys/fs/cgroup:/sys/fs/cgroup
       - .:/domjudge:cached
       - /chroot
+      - /home/maarten/git/contest/fpc2024/_scoreboards:/scoreboards
     links:
       - mariadb:mariadb
     ports:
