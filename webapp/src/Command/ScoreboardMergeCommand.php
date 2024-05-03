@@ -139,7 +139,8 @@ class ScoreboardMergeCommand extends Command
 
         $category = (new TeamCategory())
             ->setName($input->getOption('category'))
-            ->setCategoryid(0);
+            ->setCategoryid(0)
+            ->setColor("#ffffff");
 
         /** @var string[] $siteArguments */
         $siteArguments = $input->getArgument('feed-url');
@@ -198,7 +199,9 @@ class ScoreboardMergeCommand extends Command
                 $teamObj = (new Team())
                     ->setName($team['name'])
                     ->setDisplayName($team['display_name'] ?? $team['name'])
-                    ->setEnabled(true);
+                    ->setEnabled(true)
+                    ->setPublicDescription('')
+                    ->setRoom('');
                 if ($team['organization_id'] !== null &&
                     isset($organizationMap[$team['organization_id']])) {
                     $organization = $organizationMap[$team['organization_id']];
@@ -211,6 +214,8 @@ class ScoreboardMergeCommand extends Command
                         $affiliations[$organizationName] = $affiliation;
                     }
                     $teamObj->setAffiliation($affiliations[$organizationName]);
+                } else {
+                    $teamObj->setAffiliation(null);
                 }
 
                 $teamObj->setCategory($category);
@@ -264,7 +269,7 @@ class ScoreboardMergeCommand extends Command
                             ->setName($name);
                         $contestProblemObj = (new ContestProblem())
                             ->setProblem($problemObj)
-                            ->setColor($baseProblem['color'])
+                            ->setColor($baseProblem['rgb'])
                             ->setShortName($label);
                         $problems[$id] = $contestProblemObj;
                         $problemNameToIdMap[$name] = $id;
