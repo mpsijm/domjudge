@@ -134,12 +134,14 @@ class ScoreboardMergeCommand extends Command
         $affiliations = [];
         $firstSolve = [];
         $contest = (new Contest())
-            ->setName($input->getArgument('contest-name'));
+            ->setName($input->getArgument('contest-name'))
+            ->setShortname($input->getArgument('contest-name'));
         $freezeData = null;
 
         $category = (new TeamCategory())
             ->setName($input->getOption('category'))
-            ->setCategoryid(0);
+            ->setCategoryid(0)
+            ->setColor("rgba(0,0,0,0)");
 
         /** @var string[] $siteArguments */
         $siteArguments = $input->getArgument('feed-url');
@@ -198,7 +200,8 @@ class ScoreboardMergeCommand extends Command
                 $teamObj = (new Team())
                     ->setName($team['name'])
                     ->setDisplayName($team['display_name'] ?? $team['name'])
-                    ->setEnabled(true);
+                    ->setEnabled(true)
+                    ->setPublicDescription('');
                 if ($team['organization_id'] !== null &&
                     isset($organizationMap[$team['organization_id']])) {
                     $organization = $organizationMap[$team['organization_id']];
@@ -211,6 +214,8 @@ class ScoreboardMergeCommand extends Command
                         $affiliations[$organizationName] = $affiliation;
                     }
                     $teamObj->setAffiliation($affiliations[$organizationName]);
+                } else {
+                    $teamObj->setAffiliation(null);
                 }
 
                 $teamObj->setCategory($category);
@@ -256,15 +261,17 @@ class ScoreboardMergeCommand extends Command
                     $problemId = $problem['problem_id'];
                     $baseProblem = $problemMap[$problemId];
                     $label = $baseProblem['label'];
+                    $externalid = $baseProblem['externalid'] ?? $label;
                     $name = $baseProblem['name'];
                     if (!array_key_exists($name, $problemNameToIdMap)) {
                         $id = count($problems);
                         $problemObj = (new Problem())
                             ->setProbid($id)
+                            ->setExternalid($externalid)
                             ->setName($name);
                         $contestProblemObj = (new ContestProblem())
                             ->setProblem($problemObj)
-                            ->setColor($baseProblem['color'])
+                            ->setColor($baseProblem['rgb'])
                             ->setShortName($label);
                         $problems[$id] = $contestProblemObj;
                         $problemNameToIdMap[$name] = $id;
