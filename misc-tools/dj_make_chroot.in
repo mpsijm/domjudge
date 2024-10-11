@@ -235,7 +235,7 @@ if [ "$DISTRO" = 'Ubuntu' ]; then
         # architectures need to use a mirror from ubuntu-ports.
         MAINSTREAM="amd64 i386"
         if [ -z "${MAINSTREAM##*"$ARCH"*}" ]; then
-            DEBMIRROR="http://us.archive.ubuntu.com/ubuntu/"
+            DEBMIRROR="http://nl.archive.ubuntu.com/ubuntu/"
         else
             DEBMIRROR="http://ports.ubuntu.com/ubuntu-ports/"
         fi
@@ -448,9 +448,18 @@ if [ -n "$REPOLISTS" ]; then
     done
 fi
 
+# Added
+echo "deb [trusted=yes] https://wisvch.github.io/chipcie-repo/debian ./" >> "$CHROOTDIR/etc/apt/sources.list"
+INSTALLDEBS="$INSTALLDEBS chipcie-kotlin"
+
 # Upgrade the system, and install/remove packages as desired
 in_chroot "apt-get update && apt-get dist-upgrade"
 in_chroot "apt-get clean"
+
+# Added
+in_chroot "apt-get install software-properties-common gnupg"
+in_chroot "add-apt-repository ppa:pypy/ppa -y"
+
 in_chroot "apt-get install $INSTALLDEBS"
 if [ -n "$LOCALDEBS" ]; then
     DIR=$(mktemp -d -p "$CHROOTDIR/tmp" 'dj_chroot_debs_XXXXXX')

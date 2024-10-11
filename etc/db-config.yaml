@@ -102,7 +102,7 @@
             error_message: A positive number is required.
         -   name: timelimit_overshoot
             type: string
-            default_value: 1s|10%
+            default_value: 3s|50%
             public: false
             description: Time that submissions are kept running beyond timelimit before being killed. Specify as `Xs` for X seconds, `Y%` as percentage, or a combination of both separated by one of `+|&` for the sum, maximum, or minimum of both.
             regex: /^\d+[s%]([+|&]\d+[s%])?$/

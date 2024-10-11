@@ -36,7 +36,7 @@ class LanguageFixture extends AbstractDefaultDataFixture
             ['java',   'java',       'Java',        ['java'],                    false, 'Main class', true,   true,   1,     'java_javac_detect', 'javac -version',     'java -version'],
             ['js',     'javascript', 'JavaScript',  ['js', 'mjs'],               false, 'Main file',  false,  true,   1,     'js',                'nodejs --version',   'nodejs --version'],
             ['lua',    'lua',        'Lua',         ['lua'],                     false, null,         false,  true,   1,     'lua',               'luac -v',            'lua -v'],
-            ['kt',     'kotlin',     'Kotlin',      ['kt'],                      true,  'Main class', false,  true,   1,     'kt',                'kotlinc -version',   'kotlin -version'],
+            ['kt',     'kotlin',     'Kotlin',      ['kt'],                      true,  'Main class', true,   true,   1,     'kt',                'kotlinc -version',   'kotlin -version'],
             ['pas',    'pascal',     'Pascal',      ['pas', 'p'],                false, 'Main file',  false,  true,   1,     'pas',               'fpc -iW',            ''],
             ['pl',     'pl',         'Perl',        ['pl'],                      false, 'Main file',  false,  true,   1,     'pl',                'perl -v',            'perl -v'],
             ['plg',    'prolog',     'Prolog',      ['plg'],                     false, 'Main file',  false,  true,   1,     'plg',               'swipl --version',    ''],
