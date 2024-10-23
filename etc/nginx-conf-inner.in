@@ -53,6 +53,7 @@ location @domjudgeFront {
 	fastcgi_param REQUEST_URI $prefix$uri?$args;
 	fastcgi_param DOCUMENT_ROOT $domjudgeRoot;
 	fastcgi_param HTTPS $fastcgi_param_https_variable;
+	fastcgi_read_timeout 120;
 	# Prevents URIs that include the front controller. This will 404:
 	# http://domain.tld/app_dev.php/some-path
 	internal;
@@ -68,6 +69,7 @@ location @domjudgeFrontApi {
 	fastcgi_param REQUEST_URI $prefix$uri?$args;
 	fastcgi_param DOCUMENT_ROOT $domjudgeRoot;
 	fastcgi_param HTTPS $fastcgi_param_https_variable;
+	fastcgi_read_timeout 120;
 	# Prevents URIs that include the front controller. This will 404:
 	# http://domain.tld/app_dev.php/some-path
 	internal;
